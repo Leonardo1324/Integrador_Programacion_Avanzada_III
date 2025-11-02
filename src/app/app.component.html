@@ -1,3 +1,32 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu contentId="main-content" type="overlay">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menú de Tareas</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+          <ion-item 
+            routerLink="{{ p.url }}" 
+            routerDirection="root" 
+            detail="false"
+            lines="none"
+          >
+            <ion-icon 
+              slot="start" 
+              name="{{ p.icon }}" 
+              aria-hidden="true">
+            </ion-icon>
+            <ion-label>{{ p.title }}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <div class="ion-page" id="main-content">
+    <ion-router-outlet></ion-router-outlet>
+  </div>
 </ion-app>

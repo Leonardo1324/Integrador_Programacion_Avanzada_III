@@ -1,0 +1,84 @@
+.contenedor-scroll {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px;
+}
+
+.columna {
+  min-width: 260px;
+  margin-right: 15px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  padding: 10px;
+  flex-shrink: 0;
+}
+
+.columna h2 {
+  text-align: center;
+  color: #2a2a2a;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.lista-tareas {
+  min-height: 100px;
+  background-color: #eaeaea;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+ion-card {
+  margin-bottom: 8px;
+  cursor: grab;
+}
+
+.vacio {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+}
+
+.titulo-columna {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--ion-color-primary);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px 8px 0 0;
+  font-weight: bold;
+
+  h2 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+
+/* 🔴 Botón de eliminar columna */
+.btn-eliminar-columna {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 10;
+  --background: transparent;
+  --color: #ffffff;
+  --ion-color-danger: #ff4d4d;
+  font-size: 1.4rem;
+
+  ion-icon {
+    font-size: 22px;
+    color: #ffffff;
+    background: #e63946;
+    border-radius: 50%;
+    padding: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  ion-icon:hover {
+    transform: scale(1.2);
+    background: #c1121f;
+  }
+}

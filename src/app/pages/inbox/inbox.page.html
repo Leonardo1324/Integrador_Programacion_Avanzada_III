@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="secondary">
+    <!-- Botones de la izquierda: Aquí va el botón del menú -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Inbox</ion-title>
+
+    <!-- Botones de la derecha: Se mantiene la funcionalidad original -->
+    <ion-buttons slot="end">
+      <ion-button (click)="agregarTarea()">Agregar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let tarea of tareas">
+      <ion-label>{{ tarea.titulo }}</ion-label>
+      <ion-select placeholder="Cambiar estado" (ionChange)="cambiarEstado(tarea.id, $event.detail.value)">
+        <ion-select-option value="por_hacer">Por hacer</ion-select-option>
+        <ion-select-option value="en_progreso">En progreso</ion-select-option>
+        <ion-select-option value="completado">Completado</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

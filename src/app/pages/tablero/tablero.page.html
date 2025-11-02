@@ -1,0 +1,75 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <!-- Botones de la izquierda: Aquí va el botón del menú -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Tablero</ion-title>
+
+    <!-- Botones de la derecha: Se mantiene la funcionalidad original -->
+    <ion-buttons slot="end">
+      <ion-button (click)="agregarColumna()">
+        <ion-icon name="add-circle-outline" aria-hidden="true"></ion-icon>
+        <ion-label>Columna</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div
+    class="contenedor-scroll"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="dropColumna($event)"
+  >
+    <div
+      class="columna"
+      *ngFor="let estado of estados"
+      cdkDrag
+      cdkDragLockAxis="x"
+    >
+      <!-- Encabezado de la columna -->
+      <div class="titulo-columna" cdkDragHandle>
+        <h2>{{ estado.titulo }}</h2>
+
+        <!-- 🔥 Botón eliminar columna -->
+        <ion-button
+        fill="clear"
+        color="danger"
+        size="small"
+        class="btn-eliminar-columna"
+        (click)="eliminarColumna(estado.clave); $event.stopPropagation();"
+        >
+  <ion-icon name="close-circle-outline"></ion-icon>
+</ion-button>
+      </div>
+
+      <!-- Lista de tareas -->
+      <div
+        class="lista-tareas"
+        cdkDropList
+        [id]="estado.clave"
+        [cdkDropListData]="obtenerTareasPorEstado(estado.clave)"
+        [cdkDropListConnectedTo]="columnasConectadas"
+        (cdkDropListDropped)="dropTarea($event, estado.clave)"
+      >
+        <ion-card *ngFor="let tarea of obtenerTareasPorEstado(estado.clave)" cdkDrag>
+          <ion-card-header>
+            <ion-card-title>{{ tarea.titulo }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+
+        <ion-card *ngIf="obtenerTareasPorEstado(estado.clave).length === 0">
+          <ion-card-content class="vacio">Sin tareas</ion-card-content>
+        </ion-card>
+      </div>
+
+      <ion-button expand="block" fill="clear" (click)="agregarTarea(estado.clave)">
+        <ion-icon name="add-outline"></ion-icon>
+        Agregar tarea
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
