@@ -110,6 +110,7 @@ export class TableroPage {
   }
 
   //Eliminar columna
+  
   async eliminarColumna(clave: string) {
     const columna = this.estados.find(c => c.clave === clave);
     if (!columna) return;
@@ -170,16 +171,23 @@ export class TableroPage {
     }
   }
 
-  //Mover columnas (Requiere actualizar el orden en el servidor)
-  dropColumna(event: CdkDragDrop<any[]>) {
-    this.tareasService.moverEstado(event.previousIndex, event.currentIndex).subscribe({
-        next: (estadosActualizados) => {
-            this.estados = estadosActualizados; 
-            this.actualizarColumnasConectadas();
-        },
-        error: (err) => console.error('Error al mover columna:', err)
-    });
-  }
+  dropColumna(event: CdkDragDrop<Estado[]>) {
+  // Actualizar el array localmente
+  moveItemInArray(this.estados, event.previousIndex, event.currentIndex);
+
+  // Crear un array con solo los ids en el nuevo orden
+  const nuevoOrdenIds = this.estados.map(e => e.id);
+
+  // Llamada al servicio para actualizar el orden en el backend
+  this.tareasService.moverEstado(nuevoOrdenIds).subscribe({
+    next: (estadosActualizados: Estado[]) => {
+      // Reemplazar el array completo por el actualizado desde el servidor
+      this.estados = estadosActualizados;
+      this.actualizarColumnasConectadas();
+    },
+    error: (err) => console.error('Error al mover columna:', err)
+  });
+}
 
   //FUNCIÓN PARA ELIMINAR UNA TAREA
   public eliminarTarea(tareaAeliminar: Tarea): void {

@@ -3,23 +3,9 @@
     {
       "titulo": "Diseñar logo",
       "descripcion": "Crear una propuesta de logo para la aplicación.",
-      "estado": "en_progreso",
-      "asignadoA": "Leo",
-      "id": "1"
-    },
-    {
-      "id": "2",
-      "titulo": "Configurar servidor",
-      "estado": "completado",
-      "descripcion": "Instalar y configurar JSON Server localmente.",
-      "asignadoA": "Leo"
-    },
-    {
-      "titulo": "dos",
-      "descripcion": "dos mas dos",
       "estado": "por_hacer",
       "asignadoA": "Leo",
-      "id": "f8cd"
+      "id": "1"
     },
     {
       "id": "2815",
@@ -27,28 +13,46 @@
       "estado": "por_hacer",
       "descripcion": "uno mas uno",
       "asignadoA": "Leo"
+    },
+    {
+      "id": "36c5",
+      "titulo": "Cargar base de datos",
+      "estado": "en_progreso",
+      "descripcion": "se debe cargar la base de datos",
+      "asignadoA": "Leo"
+    },
+    {
+      "id": "2533",
+      "titulo": "tarea de prueba",
+      "estado": "por_hacer",
+      "descripcion": "asd",
+      "asignadoA": "Leonardo"
     }
   ],
   "estados": [
     {
       "id": "por_hacer",
       "clave": "por_hacer",
-      "nombre": "Por hacer"
+      "nombre": "Por hacer",
+      "orden": 0
     },
     {
       "id": "en_progreso",
       "clave": "en_progreso",
-      "nombre": "En progreso"
+      "nombre": "En progreso",
+      "orden": 1
     },
     {
       "id": "completado",
       "clave": "completado",
-      "nombre": "Completado"
+      "nombre": "Completado",
+      "orden": 3
     },
     {
-      "id": "aaf5",
-      "clave": "nueva",
-      "nombre": "nueva"
+      "id": "revisar",
+      "clave": "revisar",
+      "nombre": "Revisar",
+      "orden": 2
     }
   ]
 }

@@ -49,6 +49,8 @@ ion-card {
   padding: 8px 12px;
   border-radius: 8px 8px 0 0;
   font-weight: bold;
+  cursor: grab; /* 👈 da el efecto visual de arrastrar */
+  user-select: none; /* 👈 evita seleccionar texto al arrastrar */
 
   h2 {
     margin: 0;

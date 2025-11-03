@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable, forkJoin, lastValueFrom } from 'rxjs';
 
 export interface Tarea {
   id: number;
@@ -11,6 +11,7 @@ export interface Tarea {
 }
 
 export interface Estado {
+  id: string;
   clave: string;
   nombre: string;
 }
@@ -26,7 +27,7 @@ export class TareasService {
     return this.http.get<Tarea>(`${this.tareasUrl}/${taskId}`);
   }
 
-  private readonly apiUrl = 'http://192.168.56.1:3000';
+  private readonly apiUrl = 'http://localHost:3000';
   private readonly tareasUrl = `${this.apiUrl}/tareas`;
   private readonly estadosUrl = `${this.apiUrl}/estados`;
 
@@ -72,24 +73,26 @@ export class TareasService {
   }
 
   agregarEstado(nombre: string): Observable<Estado> {
-    const clave = nombre.toLowerCase().replace(/\s+/g, '_');
-    const nuevoEstado: Omit<Estado, 'id'> = { clave, nombre };
-    return this.http.post<Estado>(this.estadosUrl, nuevoEstado);
-  }
+  const id = nombre.toLowerCase().replace(/\s+/g, '_');
+  const nuevoEstado: Estado = { id, clave: id, nombre };
+  return this.http.post<Estado>(this.estadosUrl, nuevoEstado);
+}
+
 
   eliminarEstado(clave: string): Observable<any> {
     const url = `${this.estadosUrl}/${clave}`;
     return this.http.delete(url);
   }
 
-  moverEstado(previousIndex: number, currentIndex: number): Observable<Estado[]> {
-    const currentStates = [...this.estadosList];
-    const [movedItem] = currentStates.splice(previousIndex, 1);
-    currentStates.splice(currentIndex, 0, movedItem);
-    this.estadosList = currentStates;
-    return new Observable<Estado[]>(observer => {
-      observer.next(currentStates);
-      observer.complete();
-    });
-  }
+  moverEstado(nuevoOrdenIds: string[]): Observable<Estado[]> {
+  // Aquí podrías hacer un PATCH a cada estado para actualizar su posición
+  // Si usás JSON Server, necesitás simular posiciones con un campo "orden"
+  
+  const updates$ = nuevoOrdenIds.map((id, index) => 
+    this.http.patch<Estado>(`${this.apiUrl}/estados/${id}`, { orden: index })
+  );
+
+  return forkJoin(updates$);
+}
+
 }
