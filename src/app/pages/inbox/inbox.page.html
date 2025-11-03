@@ -18,10 +18,21 @@
   <ion-list>
     <ion-item *ngFor="let tarea of tareas">
       <ion-label>{{ tarea.titulo }}</ion-label>
-      <ion-select placeholder="Cambiar estado" (ionChange)="cambiarEstado(tarea.id, $event.detail.value)">
-        <ion-select-option value="por_hacer">Por hacer</ion-select-option>
-        <ion-select-option value="en_progreso">En progreso</ion-select-option>
-        <ion-select-option value="completado">Completado</ion-select-option>
+      
+      <!-- Usamos [value] para enlazar el estado actual de la tarea -->
+      <ion-select 
+        placeholder="Cambiar estado" 
+        [value]="tarea.estado"
+        (ionChange)="cambiarEstado(tarea.id, $event.detail.value)"
+      >
+        <!-- DINAMIZACIÓN: Iterar sobre la lista de estadosDisponibles -->
+        <ion-select-option 
+          *ngFor="let estado of estadosDisponibles" 
+          [value]="estado.clave"
+        >
+          {{ estado.nombre }}
+        </ion-select-option>
+        
       </ion-select>
     </ion-item>
   </ion-list>

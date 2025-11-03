@@ -6,12 +6,14 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+import { provideHttpClient } from '@angular/common/http';
 
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    importProvidersFrom(DragDropModule)
+    importProvidersFrom(DragDropModule),
+    provideHttpClient() 
   ],
 });

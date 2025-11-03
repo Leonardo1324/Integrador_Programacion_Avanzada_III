@@ -1,0 +1,47 @@
+{
+  "tareas": [
+    {
+      "id": "1",
+      "titulo": "Diseñar logo",
+      "estado": "por_hacer",
+      "descripcion": "Crear una propuesta de logo para la aplicación.",
+      "asignadoA": "Leo"
+    },
+    {
+      "id": "2",
+      "titulo": "Configurar servidor",
+      "estado": "en_progreso",
+      "descripcion": "Instalar y configurar JSON Server localmente.",
+      "asignadoA": "Leo"
+    },
+    {
+      "id": "3",
+      "titulo": "Subir app a GitHub",
+      "estado": "completado",
+      "descripcion": "Realizar el commit inicial del proyecto a GitHub.",
+      "asignadoA": "Leo"
+    }
+  ],
+  "estados": [
+    {
+      "id": "por_hacer",
+      "clave": "por_hacer",
+      "nombre": "Por hacer"
+    },
+    {
+      "id": "en_progreso",
+      "clave": "en_progreso",
+      "nombre": "En progreso"
+    },
+    {
+      "id": "completado",
+      "clave": "completado",
+      "nombre": "Completado"
+    },
+    {
+      "id": "aaf5",
+      "clave": "nueva",
+      "nombre": "nueva"
+    }
+  ]
+}

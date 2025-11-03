@@ -32,7 +32,7 @@
     >
       <!-- Encabezado de la columna -->
       <div class="titulo-columna" cdkDragHandle>
-        <h2>{{ estado.titulo }}</h2>
+        <h2>{{ estado.nombre }}</h2>
 
         <!-- 🔥 Botón eliminar columna -->
         <ion-button
@@ -58,6 +58,18 @@
         <ion-card *ngFor="let tarea of obtenerTareasPorEstado(estado.clave)" cdkDrag>
           <ion-card-header>
             <ion-card-title>{{ tarea.titulo }}</ion-card-title>
+<ion-button 
+                fill="clear" 
+                color="danger" 
+                size="small" 
+                (click)="eliminarTarea(tarea); $event.stopPropagation();" 
+                title="Eliminar tarea"
+                style="margin: 0;"
+              >
+                <!-- CAMBIO REALIZADO AQUÍ: Reemplazando ion-icon por texto -->
+                Eliminar tarea
+              </ion-button>
+
           </ion-card-header>
         </ion-card>
 
