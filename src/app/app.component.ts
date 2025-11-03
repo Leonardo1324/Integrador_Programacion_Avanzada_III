@@ -51,7 +51,7 @@ export class AppComponent {
   public appPages = [
     { title: 'Tablero', url: '/tablero', icon: 'listOutline' }, // Apunta a /tasks (Tu tablero)
     { title: 'Inbox', url: '/inbox', icon: 'homeOutline' }, // Asumo que Inbox usa la ruta /home
-  ];
+];
   
   constructor() {}
 }

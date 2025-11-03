@@ -18,6 +18,15 @@ export interface Estado {
 
 @Injectable({ providedIn: 'root' })
 export class TareasService {
+
+  actualizarTarea(taskId: number, tareaData: Tarea) {
+    return this.http.put<Tarea>(`${this.tareasUrl}/${taskId}`, tareaData);
+  }
+
+  obtenerTareaPorId(taskId: number) {
+    return this.http.get<Tarea>(`${this.tareasUrl}/${taskId}`);
+  }
+
   // 3. URL base de JSON Server (Asegúrate de que este puerto coincida con tu configuración)
   private readonly apiUrl = 'http://localhost:3000'; 
   
@@ -47,7 +56,7 @@ export class TareasService {
     return this.http.get<Tarea[]>(this.tareasUrl);
   }
 
-  agregarTarea(titulo: string): Observable<Tarea> {
+  agregarTarea(titulo: string, descripcion: string | undefined, estado: string): Observable<Tarea> {
     const nuevaTarea: Omit<Tarea, 'id'> = { 
       titulo: titulo, 
       estado: 'por_hacer' // Asigna un estado por defecto, debe existir en 'estados'

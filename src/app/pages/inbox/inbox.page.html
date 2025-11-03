@@ -1,39 +1,65 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="secondary">
-    <!-- Botones de la izquierda: Aquí va el botón del menú -->
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
     <ion-title>Inbox</ion-title>
 
-    <!-- Botones de la derecha: Se mantiene la funcionalidad original -->
     <ion-buttons slot="end">
-      <ion-button (click)="agregarTarea()">Agregar</ion-button>
+      <ion-button (click)="agregarTarea('')">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Agregar
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
+<ion-content [fullscreen]="true">
+
+  <!-- Indicador de carga -->
+  <div *ngIf="isLoading" class="ion-text-center ion-padding-top">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Cargando tareas...</p>
+  </div>
+
+  <!-- Lista de tareas -->
+  <ion-list *ngIf="!isLoading && tareas.length > 0">
     <ion-item *ngFor="let tarea of tareas">
-      <ion-label>{{ tarea.titulo }}</ion-label>
-      
-      <!-- Usamos [value] para enlazar el estado actual de la tarea -->
-      <ion-select 
-        placeholder="Cambiar estado" 
+      <ion-label class="ion-text-wrap">
+        <h2>{{ tarea.titulo }}</h2>
+        <p>{{ tarea.descripcion || 'Sin descripción' }}</p>
+      </ion-label>
+
+      <!-- Selector de estado -->
+      <ion-select
         [value]="tarea.estado"
         (ionChange)="cambiarEstado(tarea.id, $event.detail.value)"
+        interface="popover"
+        placeholder="Cambiar estado"
       >
-        <!-- DINAMIZACIÓN: Iterar sobre la lista de estadosDisponibles -->
-        <ion-select-option 
-          *ngFor="let estado of estadosDisponibles" 
-          [value]="estado.clave"
-        >
+        <ion-select-option *ngFor="let estado of estadosDisponibles" [value]="estado.clave">
           {{ estado.nombre }}
         </ion-select-option>
-        
       </ion-select>
+
+      <!-- Botones de acción -->
+      <ion-buttons slot="end">
+        <ion-button fill="clear" color="primary" (click)="editarTarea(tarea.id)">
+          Editar Tarea
+        </ion-button>
+
+        <ion-button fill="clear" color="danger" (click)="confirmarEliminar(tarea.id)">
+          Eliminar Tarea
+        </ion-button>
+      </ion-buttons>
     </ion-item>
   </ion-list>
+
+  <!-- Mensaje si no hay tareas -->
+  <div *ngIf="!isLoading && tareas.length === 0" class="ion-text-center ion-padding">
+    <ion-icon name="document-outline" size="large" color="medium"></ion-icon>
+    <p>No hay tareas en el inbox.</p>
+  </div>
+
 </ion-content>

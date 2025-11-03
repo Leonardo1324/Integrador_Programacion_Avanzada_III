@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <!-- Botón de regreso -->
+      <ion-back-button defaultHref="/tasks" text="Volver"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>{{ pageTitle }}</ion-title>
+
+    <ion-buttons slot="end">
+      <!-- Botón de guardar -->
+      <ion-button (click)="guardarTarea()" [disabled]="taskForm.invalid || isLoading">
+        <ion-icon slot="start" name="save-outline"></ion-icon>
+        <ion-label>Guardar</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <!-- Estado de carga -->
+  <div *ngIf="isLoading" class="ion-text-center ion-padding-top">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Cargando tarea...</p>
+  </div>
+
+  <!-- Formulario -->
+  <form [formGroup]="taskForm" (ngSubmit)="guardarTarea()" *ngIf="!isLoading">
+
+    <ion-list lines="full" class="ion-no-margin ion-padding-bottom">
+
+      <!-- Campo Título -->
+      <ion-item>
+        <ion-label position="stacked">Título <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input
+          formControlName="titulo"
+          placeholder="Ej: Redactar informe del proyecto">
+        </ion-input>
+      </ion-item>
+
+      <!-- Error de título -->
+      <ion-text color="danger" *ngIf="f['titulo'].errors?.['required'] && f['titulo'].touched">
+        <p class="ion-padding-start ion-text-small">El título es obligatorio.</p>
+      </ion-text>
+
+      <!-- Campo Descripción -->
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-textarea
+          formControlName="descripcion"
+          placeholder="Detalles o notas de la tarea"
+          rows="4"
+          autoGrow="true">
+        </ion-textarea>
+      </ion-item>
+
+      <!-- Selector de Estado -->
+      <ion-item>
+        <ion-label position="stacked">Estado</ion-label>
+        <ion-select formControlName="estado" interface="popover" placeholder="Selecciona un estado">
+          <ion-select-option *ngFor="let estado of estadosDisponibles" [value]="estado.clave">
+            {{ estado.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Campo Asignado A -->
+      <ion-item>
+        <ion-label position="stacked">Asignado a</ion-label>
+        <ion-input
+          formControlName="asignadoA"
+          placeholder="Nombre del responsable">
+        </ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <!-- Botón de Guardar (accesible al final) -->
+    <ion-footer class="ion-padding-top">
+      <ion-button
+        expand="block"
+        type="submit"
+        [disabled]="taskForm.invalid || isLoading"
+        color="success">
+        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+        {{ taskId ? 'Guardar Cambios' : 'Crear Tarea' }}
+      </ion-button>
+    </ion-footer>
+
+  </form>
+
+</ion-content>

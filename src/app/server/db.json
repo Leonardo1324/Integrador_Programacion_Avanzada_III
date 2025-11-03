@@ -1,25 +1,25 @@
 {
   "tareas": [
     {
-      "id": "1",
       "titulo": "Diseñar logo",
-      "estado": "por_hacer",
       "descripcion": "Crear una propuesta de logo para la aplicación.",
-      "asignadoA": "Leo"
+      "estado": "en_progreso",
+      "asignadoA": "Leo",
+      "id": "1"
     },
     {
       "id": "2",
       "titulo": "Configurar servidor",
-      "estado": "en_progreso",
+      "estado": "completado",
       "descripcion": "Instalar y configurar JSON Server localmente.",
       "asignadoA": "Leo"
     },
     {
-      "id": "3",
-      "titulo": "Subir app a GitHub",
-      "estado": "completado",
-      "descripcion": "Realizar el commit inicial del proyecto a GitHub.",
-      "asignadoA": "Leo"
+      "titulo": "Pendiente 2",
+      "descripcion": "",
+      "estado": "por_hacer",
+      "asignadoA": "",
+      "id": "ee3a"
     }
   ],
   "estados": [

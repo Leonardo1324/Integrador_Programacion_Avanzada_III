@@ -159,33 +159,11 @@ export class TableroPage {
     await alert.present();
   }
 
-  // 🟡 Agregar tarea
-  async agregarTarea(estado: string) {
-    const alert = await this.alertCtrl.create({
-      header: 'Nueva tarea',
-      inputs: [{ name: 'titulo', type: 'text', placeholder: 'Título de la tarea' }],
-      buttons: [
-        { text: 'Cancelar', role: 'cancel' },
-        {
-          text: 'Agregar',
-          handler: data => {
-            if (data.titulo.trim()) {
-              // LLAMADA ASÍNCRONA: Agregar tarea al servidor
-              this.tareasService.agregarTarea(data.titulo).subscribe({
-                next: (nuevaTarea) => {
-                  nuevaTarea.estado = estado; // Aseguramos que la tarea esté en el estado correcto localmente
-                  this.tareas.push(nuevaTarea); // Actualizar array local
-                  this.tareas = [...this.tareas]; // Forzar detección de cambios para la UI
-                },
-                error: (err) => console.error('Error al agregar tarea:', err)
-              });
-            }
-          },
-        },
-      ],
-    });
-    await alert.present();
-  }
+  agregarTarea(estado: string) {
+  this.navCtrl.navigateForward(['/tarea-form'], {
+    queryParams: { estado, modo: 'crear' } // enviamos parámetros opcionales
+  });
+}
 
   // 🟠 Mover tareas (Requiere actualizar el estado en el servidor)
   dropTarea(event: CdkDragDrop<Tarea[]>, nuevoEstado: string) {
@@ -242,4 +220,16 @@ export class TableroPage {
         });
     }
   }
+
+  // ✏️ Editar tarea existente
+public editarTarea(tarea: Tarea): void {
+  this.navCtrl.navigateForward(['/tarea-form'], {
+    queryParams: {
+      id: tarea.id,
+      estado: tarea.estado,
+      modo: 'editar'
+    }
+  });
+}
+
 }

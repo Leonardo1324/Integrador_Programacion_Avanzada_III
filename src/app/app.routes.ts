@@ -17,5 +17,9 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'tablero',
     pathMatch: 'full',
+  },
+  {
+    path: 'tarea-form',
+    loadComponent: () => import('./pages/tarea-form/tarea-form.page').then( m => m.TareaFormPage)
   }
 ];
