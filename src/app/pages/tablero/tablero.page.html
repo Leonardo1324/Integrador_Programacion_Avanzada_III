@@ -1,13 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <!-- Botones de la izquierda: Aquí va el botón del menú -->
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
     <ion-title>Tablero</ion-title>
 
-    <!-- Botones de la derecha: Se mantiene la funcionalidad original -->
     <ion-buttons slot="end">
       <ion-button (click)="agregarColumna()">
         <ion-icon name="add-circle-outline" aria-hidden="true"></ion-icon>
@@ -30,11 +28,9 @@
       cdkDrag
       cdkDragLockAxis="x"
     >
-      <!-- Encabezado de la columna -->
       <div class="titulo-columna" cdkDragHandle>
         <h2>{{ estado.nombre }}</h2>
 
-        <!-- 🔥 Botón eliminar columna -->
         <ion-button
         fill="clear"
         color="danger"
@@ -42,11 +38,10 @@
         class="btn-eliminar-columna"
         (click)="eliminarColumna(estado.clave); $event.stopPropagation();"
         >
-  <ion-icon name="close-circle-outline"></ion-icon>
-</ion-button>
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
       </div>
 
-      <!-- Lista de tareas -->
       <div
         class="lista-tareas"
         cdkDropList
@@ -56,41 +51,39 @@
         (cdkDropListDropped)="dropTarea($event, estado.clave)"
       >
         <ion-card *ngFor="let tarea of obtenerTareasPorEstado(estado.clave)" cdkDrag>
-  <ion-card-header>
-    <ion-card-title>{{ tarea.titulo }}</ion-card-title>
-  </ion-card-header>
+          <ion-card-header>
+            <ion-card-title>{{ tarea.titulo }}</ion-card-title>
+          </ion-card-header>
 
-  <ion-card-content>
-    <!-- 👤 Mostrar a quién está asignada la tarea -->
-    <p *ngIf="tarea.asignadoA"><strong>Asignado a:</strong> {{ tarea.asignadoA }}</p>
-    <p *ngIf="!tarea.asignadoA"><em>Sin asignar</em></p>
+          <ion-card-content>
+            <p *ngIf="tarea.asignadoA"><strong>Asignado a:</strong> {{ tarea.asignadoA }}</p>
+            <p *ngIf="!tarea.asignadoA"><em>Sin asignar</em></p>
 
-    <!-- 🔘 Botones de acción -->
-    <div class="acciones-tarea">
-      <ion-button
-        fill="clear"
-        color="medium"
-        size="small"
-        (click)="editarTarea(tarea); $event.stopPropagation();"
-        title="Editar tarea"
-      >
-        <ion-icon name="create-outline"></ion-icon>
-        Editar
-      </ion-button>
+            <div class="acciones-tarea">
+              <ion-button
+                fill="clear"
+                color="medium"
+                size="small"
+                (click)="editarTarea(tarea); $event.stopPropagation();"
+                title="Editar tarea"
+              >
+                <ion-icon name="create-outline"></ion-icon>
+                Editar
+              </ion-button>
 
-      <ion-button
-        fill="clear"
-        color="danger"
-        size="small"
-        (click)="eliminarTarea(tarea); $event.stopPropagation();"
-        title="Eliminar tarea"
-      >
-        <ion-icon name="trash-outline"></ion-icon>
-        Eliminar
-      </ion-button>
-    </div>
-  </ion-card-content>
-</ion-card>
+              <ion-button
+                fill="clear"
+                color="danger"
+                size="small"
+                (click)="eliminarTarea(tarea); $event.stopPropagation();"
+                title="Eliminar tarea"
+              >
+                <ion-icon name="trash-outline"></ion-icon>
+                Eliminar
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
 
         <ion-card *ngIf="obtenerTareasPorEstado(estado.clave).length === 0">
           <ion-card-content class="vacio">Sin tareas</ion-card-content>

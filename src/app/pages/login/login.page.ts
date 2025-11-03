@@ -33,7 +33,6 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class LoginPage {
-  // ✅ Definimos el formulario con validación requerida
   form = this.fb.group({
     nombre: ['', Validators.required],
   });

@@ -3,6 +3,7 @@ import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } 
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { importProvidersFrom } from '@angular/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
@@ -14,6 +15,7 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     importProvidersFrom(DragDropModule),
-    provideHttpClient() 
+    provideHttpClient(),
+    importProvidersFrom(IonicStorageModule.forRoot())
   ],
 });

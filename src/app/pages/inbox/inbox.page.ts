@@ -72,7 +72,6 @@ export class InboxPage {
     .pipe(finalize(() => (this.isLoading = false)))
     .subscribe({
       next: (results) => {
-        // 🔍 Filtramos solo las tareas asignadas al usuario actual
         this.tareas = results.tareas.filter(
           (t) => !usuarioActual || t.asignadoA?.toLowerCase() === usuarioActual.toLowerCase()
         );
