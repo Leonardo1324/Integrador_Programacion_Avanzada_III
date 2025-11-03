@@ -28,7 +28,7 @@ export class TareasService {
   }
 
   // 3. URL base de JSON Server (Asegúrate de que este puerto coincida con tu configuración)
-  private readonly apiUrl = 'http://localhost:3000'; 
+  private readonly apiUrl = 'http://192.168.56.1:3000'; 
   
   // Endpoints para las colecciones en el archivo db.json
   private readonly tareasUrl = `${this.apiUrl}/tareas`;
@@ -61,7 +61,7 @@ export class TareasService {
       titulo: titulo, 
       estado: estado,
       descripcion: descripcion,
-      asignadoA: asignadoA// Asigna un estado por defecto, debe existir en 'estados'
+      asignadoA: asignadoA
     };
     // POST: Envía la nueva tarea al servidor (JSON Server asigna el ID)
     return this.http.post<Tarea>(this.tareasUrl, nuevaTarea);

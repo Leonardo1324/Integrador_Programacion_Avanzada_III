@@ -1,24 +1,26 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="secondary">
+
+    <!-- Botón del menú -->
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
     <ion-title>Inbox</ion-title>
 
+    <!-- 🟢 Botones de la derecha -->
     <ion-buttons slot="end">
+      <!-- Botón para agregar tarea -->
       <ion-button (click)="agregarTarea('')">
         <ion-icon slot="start" name="add-circle-outline"></ion-icon>
         Agregar
       </ion-button>
+
+      <!-- 🔴 Botón para cerrar sesión -->
+      <ion-button color="light" (click)="logout()">
+        logout
+      </ion-button>
     </ion-buttons>
-
-<ion-buttons slot="end">
-  <ion-button color="light" (click)="logout()">
-    <ion-icon name="log-out-outline"></ion-icon>
-  </ion-button>
-</ion-buttons>
-
 
   </ion-toolbar>
 </ion-header>
@@ -54,11 +56,11 @@
       <!-- Botones de acción -->
       <ion-buttons slot="end">
         <ion-button fill="clear" color="primary" (click)="editarTarea(tarea.id)">
-          Editar Tarea
+          Editar
         </ion-button>
 
         <ion-button fill="clear" color="danger" (click)="confirmarEliminar(tarea.id)">
-          Eliminar Tarea
+          Eliminar
         </ion-button>
       </ion-buttons>
     </ion-item>
