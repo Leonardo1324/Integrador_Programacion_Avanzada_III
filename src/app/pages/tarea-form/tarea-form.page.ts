@@ -84,8 +84,9 @@ export class TareaFormPage implements OnInit {
     const accion$ = this.modo === 'editar'
       ? this.tareasService.actualizarTarea(this.taskId, tareaData)
       : this.tareasService.agregarTarea(tareaData.titulo,
-  tareaData.descripcion,
-  tareaData.estado);
+                                        tareaData.descripcion,
+                                        tareaData.estado,
+                                        tareaData.asignadoA);
       
 
     accion$.subscribe({

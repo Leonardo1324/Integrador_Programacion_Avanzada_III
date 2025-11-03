@@ -56,10 +56,12 @@ export class TareasService {
     return this.http.get<Tarea[]>(this.tareasUrl);
   }
 
-  agregarTarea(titulo: string, descripcion: string | undefined, estado: string): Observable<Tarea> {
+  agregarTarea(titulo: string, descripcion: string | undefined, estado: string, asignadoA?: string | undefined): Observable<Tarea> {
     const nuevaTarea: Omit<Tarea, 'id'> = { 
       titulo: titulo, 
-      estado: 'por_hacer' // Asigna un estado por defecto, debe existir en 'estados'
+      estado: estado,
+      descripcion: descripcion,
+      asignadoA: asignadoA// Asigna un estado por defecto, debe existir en 'estados'
     };
     // POST: Envía la nueva tarea al servidor (JSON Server asigna el ID)
     return this.http.post<Tarea>(this.tareasUrl, nuevaTarea);

@@ -20,6 +20,7 @@ import {
   IonSpinner,
 } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-inbox',
@@ -52,30 +53,34 @@ export class InboxPage {
   constructor(
     private tareasService: TareasService,
     private alertCtrl: AlertController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private auth: AuthService
   ) {}
 
   ionViewWillEnter() {
     this.cargarDatos();
   }
 
-  cargarDatos() {
-    this.isLoading = true;
-    forkJoin({
-      tareas: this.tareasService.obtenerTareas(),
-      estados: this.tareasService.obtenerEstados(),
-    })
-      .pipe(finalize(() => (this.isLoading = false)))
-      .subscribe({
-        next: (results) => {
-          this.tareas = results.tareas;
-          this.estadosDisponibles = results.estados;
-        },
-        error: (err) => {
-          console.error('Error al cargar datos del Inbox:', err);
-        },
-      });
-  }
+ cargarDatos() {
+  this.isLoading = true;
+  const usuarioActual = this.auth.getUsuario();
+
+  forkJoin({
+    tareas: this.tareasService.obtenerTareas(),
+    estados: this.tareasService.obtenerEstados(),
+  })
+    .pipe(finalize(() => (this.isLoading = false)))
+    .subscribe({
+      next: (results) => {
+        // 🔍 Filtramos solo las tareas asignadas al usuario actual
+        this.tareas = results.tareas.filter(
+          (t) => !usuarioActual || t.asignadoA?.toLowerCase() === usuarioActual.toLowerCase()
+        );
+        this.estadosDisponibles = results.estados;
+      },
+      error: (err) => console.error('Error al cargar datos del Inbox:', err),
+    });
+}
 
   agregarTarea(estado: string) {
     this.navCtrl.navigateForward(['/tarea-form'], {
@@ -122,4 +127,10 @@ export class InboxPage {
       error: (err) => console.error('Error al eliminar tarea:', err),
     });
   }
+
+  logout() {
+  this.auth.logout();
+  this.navCtrl.navigateRoot(['/login']);
+}
+
 }

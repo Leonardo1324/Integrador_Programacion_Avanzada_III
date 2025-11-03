@@ -15,11 +15,15 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'tablero',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
     path: 'tarea-form',
     loadComponent: () => import('./pages/tarea-form/tarea-form.page').then( m => m.TareaFormPage)
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
   }
 ];

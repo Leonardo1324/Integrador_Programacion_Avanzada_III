@@ -15,11 +15,18 @@
       "asignadoA": "Leo"
     },
     {
-      "titulo": "Pendiente 2",
-      "descripcion": "",
+      "titulo": "dos",
+      "descripcion": "dos mas dos",
       "estado": "por_hacer",
-      "asignadoA": "",
-      "id": "ee3a"
+      "asignadoA": "Leo",
+      "id": "f8cd"
+    },
+    {
+      "id": "2815",
+      "titulo": "uno",
+      "estado": "por_hacer",
+      "descripcion": "uno mas uno",
+      "asignadoA": "Leo"
     }
   ],
   "estados": [
